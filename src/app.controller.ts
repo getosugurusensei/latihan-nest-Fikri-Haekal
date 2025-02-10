@@ -46,6 +46,14 @@ export class AppController {
  }
 }
 
+@Get('mahasiswa/search')
+  async searchMahasiswa(
+    // @Query('nama')nama?:string,
+    @Query('nim')nim? : string
+  ){
+    return this.appService.searchMahasiswa(nim)
+  }
+  
 @Post("mahasiswa")
 @ApiBody({type: CreateMahasiswaDTO})
 createMahasiswq(@Body() data : CreateMahasiswaDTO){//mengambil data dari CreateMahasiswaDTO
@@ -58,13 +66,7 @@ getHello() {
 }
 
 
-  @Get('mahasiswa/search')
-  async searchMahasiswa(
-    // @Query('nama')nama?:string,
-    @Query('nim')nim? : string
-  ){
-    return this.appService.searchMahasiswa(nim)
-  }
+ 
 
   @Post('mahasiswa/:nim/upload')
   @ApiConsumes("multipart/form-data")

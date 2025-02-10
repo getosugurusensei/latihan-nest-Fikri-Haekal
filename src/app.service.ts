@@ -12,6 +12,7 @@ import { contains } from 'class-validator';
 import { equal } from 'assert';
 
 
+
 // import { User } from './entity/user.entity';
 // import { existsSync, mkdirSync, rmSync, writeFileSync } from 'fs';
 
@@ -210,6 +211,8 @@ async login(data: LoginUserDTO) {
 
     return await prisma.mahasiswa.findMany()
   }
+
+  
 
   async updateMahasiswa(nim: string, data: CreateMahasiswaDTO) {
     // Cari mahasiswa berdasarkan NIM
