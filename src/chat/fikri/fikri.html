@@ -132,6 +132,7 @@
 
   <script>
     let serverIp = "10.3.101.25";
+    let room = '';
 
     const socket = io(`http://${serverIp}:3000`, { path: '/socket' });
 
@@ -158,7 +159,7 @@
       const messageInput = document.getElementById('message-input');
       const message = messageInput.value;
       const sender = localStorage.getItem('username') || 'User';
-      socket.emit('chat-send', { message, sender });
+      socket.emit('chat-send', { message, sender, room });
       messageInput.value = '';
     }
 
@@ -190,6 +191,8 @@
         if (response.ok) {
           localStorage.setItem('username', username);
           localStorage.setItem('token', data.token);
+          room = username; // Set room to username
+          socket.emit('join-room', room); // Join the room
           document.getElementById('login-container').style.display = 'none';
           document.getElementById('chat-container').style.display = 'flex';
         } else {
