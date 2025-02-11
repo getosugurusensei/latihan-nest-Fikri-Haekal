@@ -4,34 +4,31 @@ import { CreateChatDto } from './dto/create-chat.dto';
 import { UpdateChatDto } from './dto/update-chat.dto';
 import { Server, Socket } from 'socket.io';
 
-@WebSocketGateway(
- {
- cors : {
- origin : "*"
+@WebSocketGateway({
+  cors: {
+    origin: "*"
   },
-  path : "/socket"
- }
-  )
+  path: "/socket"
+})
 export class ChatGateway {
   constructor(private readonly chatService: ChatService) {}
 
   @WebSocketServer()
-  Server : Server
+  server: Server;
 
-  async handleConnection(socket : Socket) {
-     console.log("connected")
-     }
-    
-     async handleDisconnect(socket : Socket) {
-     console.log("disconnected")
-     }
-    
-     @SubscribeMessage("chat-send")
-  async sendMessage(socket : Socket, data : any) {
-  const {message} = data
-  this.Server.emit("chat-receive", message)
- }
-  
+  async handleConnection(socket: Socket) {
+    console.log("connected");
+  }
+
+  async handleDisconnect(socket: Socket) {
+    console.log("disconnected");
+  }
+
+  @SubscribeMessage("chat-send")
+  async sendMessage(@MessageBody() createChatDto: CreateChatDto) {
+    const newChat = this.chatService.create(createChatDto);
+    this.server.emit("chat-receive", newChat);
+  }
 
   @SubscribeMessage('createChat')
   create(@MessageBody() createChatDto: CreateChatDto) {

@@ -35,7 +35,7 @@ async register(data: RegisterUserDTO) {
       }
       console.log(data)
       
-      const hash = hashSync(data.pasword, 10);
+      const hash = hashSync(data.password, 10);
 
       const newUser = await prisma.user.create({
         data: {
@@ -135,11 +135,13 @@ async auth(user_id : number) {
 
 async login(data: LoginUserDTO) {
   try {
+    console.log(data)
     const user = await prisma.user.findFirst({
       where: {
         username: data.username,
       },
     });
+    console.log(user)
     if (user === null) {
       throw new NotFoundException("userName yang anda masukkan salah");
     }

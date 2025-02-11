@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat Application</title>
+  <script src="https://cdn.socket.io/4.8.1/socket.io.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fafafa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .chat-container {
+      width: 400px;
+      border: 1px solid #dbdbdb;
+      border-radius: 10px;
+      background-color: #fff;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .chat-header {
+      padding: 10px;
+      border-bottom: 1px solid #dbdbdb;
+      text-align: center;
+      font-weight: bold;
+    }
+    #chat-box {
+      flex: 1;
+      padding: 10px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+    .chat-message {
+      margin-bottom: 10px;
+      padding: 10px;
+      border-radius: 20px;
+      max-width: 70%;
+    }
+    .chat-message.sender {
+      background-color: #dcf8c6;
+      align-self: flex-end;
+    }
+    .chat-message.receiver {
+      background-color: #ececec;
+      align-self: flex-start;
+    }
+    .chat-input-container {
+      display: flex;
+      border-top: 1px solid #dbdbdb;
+      padding: 10px;
+    }
+    #message-input {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid #dbdbdb;
+      border-radius: 20px;
+      outline: none;
+    }
+    button {
+      margin-left: 10px;
+      padding: 10px 20px;
+      border: none;
+      background-color: #0095f6;
+      color: #fff;
+      border-radius: 20px;
+      cursor: pointer;
+    }
+    .login-container, .register-container {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+    }
+    .login-container.active, .register-container.active {
+      display: flex;
+    }
+    .form-input {
+      margin-bottom: 10px;
+      padding: 10px;
+      border: 1px solid #dbdbdb;
+      border-radius: 20px;
+      width: 80%;
+      outline: none;
+    }
+    .form-button {
+      padding: 10px 20px;
+      border: none;
+      background-color: #0095f6;
+      color: #fff;
+      border-radius: 20px;
+      cursor: pointer;
+    }
+    .error-message {
+      color: red;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="register-container active" id="register-container">
+    <h2>Register</h2>
+    <input type="text" id="register-username" class="form-input" placeholder="Username">
+    <input type="password" id="register-password" class="form-input" placeholder="Password">
+    <button class="form-button" onclick="register()">Register</button>
+    <p>Already have an account? <a href="#" onclick="showLogin()">Login</a></p>
+    <p id="register-error" class="error-message"></p>
+  </div>
+
+  <div class="login-container" id="login-container">
+    <h2>Login</h2>
+    <input type="text" id="login-username" class="form-input" placeholder="Username">
+    <input type="password" id="login-password" class="form-input" placeholder="Password">
+    <button class="form-button" onclick="login()">Login</button>
+    <p>Don't have an account? <a href="#" onclick="showRegister()">Register</a></p>
+    <p id="login-error" class="error-message"></p>
+  </div>
+
+  <div class="chat-container" id="chat-container" style="display: none;">
+    <div class="chat-header">Chat Application</div>
+    <div id="chat-box"></div>
+    <div class="chat-input-container">
+      <input type="text" id="message-input" placeholder="Type a message">
+      <button onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+
+  <script>
+    let serverIp = "10.3.101.25";
+
+    const socket = io(`http://${serverIp}:3000`, { path: '/socket' });
+
+    socket.on('connect', () => {
+      console.log('Connected to server');
+    });
+
+    socket.on('connect_error', (error) => {
+      console.error('Connection error:', error);
+      alert('Unable to connect to the server. Please try again later.');
+    });
+
+    socket.on('chat-receive', (chat) => {
+      const chatBox = document.getElementById('chat-box');
+      const messageElement = document.createElement('div');
+      messageElement.classList.add('chat-message');
+      messageElement.classList.add(chat.sender === localStorage.getItem('username') ? 'sender' : 'receiver');
+      messageElement.textContent = `${chat.sender}: ${chat.message}`;
+      chatBox.appendChild(messageElement);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    });
+
+    function sendMessage() {
+      const messageInput = document.getElementById('message-input');
+      const message = messageInput.value;
+      const sender = localStorage.getItem('username') || 'User';
+      socket.emit('chat-send', { message, sender });
+      messageInput.value = '';
+    }
+
+    function showLogin() {
+      document.getElementById('login-container').classList.add('active');
+      document.getElementById('register-container').classList.remove('active');
+      document.getElementById('register-error').textContent = '';
+    }
+
+    function showRegister() {
+      document.getElementById('login-container').classList.remove('active');
+      document.getElementById('register-container').classList.add('active');
+      document.getElementById('login-error').textContent = '';
+    }
+
+    async function login() {
+      const username = document.getElementById('login-username').value;
+      const password = document.getElementById('login-password').value;
+      try {
+        const response = await fetch(`http://${serverIp}:3000/login`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ username, password }),
+        });
+        const data = await response.json();
+        console.log(data)
+        if (response.ok) {
+          localStorage.setItem('username', username);
+          localStorage.setItem('token', data.token);
+          document.getElementById('login-container').style.display = 'none';
+          document.getElementById('chat-container').style.display = 'flex';
+        } else {
+          document.getElementById('login-error').textContent = data.message;
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        document.getElementById('login-error').textContent = 'An error occurred. Please try again.';
+      }
+    }
+
+    async function register() {
+      const username = document.getElementById('register-username').value;
+      const password = document.getElementById('register-password').value;
+      try {
+        const response = await fetch(`http://${serverIp}:3000/register`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ username, password }),
+        });
+        const data = await response.json();
+        if (response.ok) {
+          localStorage.setItem('username', username);
+          localStorage.setItem('token', data.token);
+          alert('Registration successful! Please login.');
+          showLogin();
+        } else {
+          document.getElementById('register-error').textContent = data.message || 'Registration failed. Please try again.';
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        document.getElementById('register-error').textContent = 'An error occurred. Please try again.';
+      }
+    }
+  </script>
+</body>
+</html>
