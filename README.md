@@ -49,7 +49,7 @@
     Service -->|Data Access| Database;
     Service -->|Calls External APIs| ExternalAPI;
     Database -->|Stores Data| Storage;
-    diagram code here;
+   
 
 ## Proses backend
     sequenceDiagram
@@ -66,7 +66,7 @@
     Service-->>Controller: Mengembalikan Hasil Proses
     Controller-->>API_Gateway: Mengemas Respons
     API_Gateway-->>Client: Mengirimkan Respons (HTTP Response)
-    diagram code here;
+    
 
 ## Integrasi Dengan Aplikasi Chat
     Backend ini dapat digunakan sebagai backend untuk aplikasi chat berbasis real-time. Dengan menggunakan WebSockets yang didukung oleh NestJS, aplikasi ini dapat menangani komunikasi dua arah antara pengguna secara langsung.
@@ -101,7 +101,7 @@
     Controller --> |Respon ke Klien| Client;
     Error --> End[Tamat];
     Client --> End;
-    diagram code here;
+   
     
 ## Kesimpulan
     Proyek ini dibangun menggunakan NestJS dengan pendekatan modular, mengikuti best practices dalam pengembangan backend berbasis TypeScript. Dengan adanya sistem modular, proyek ini mudah untuk dikembangkan dan dipelihara dalam skala besar.
