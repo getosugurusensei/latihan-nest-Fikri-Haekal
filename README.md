@@ -44,6 +44,7 @@
     Testing: Mendukung unit testing menggunakan Jest.
 
 # Arsitektur
+    ```mermaid
     graph TD;
     Client -->|HTTP Request| Controller;
     Controller -->|Processes Request| Service;
@@ -53,7 +54,8 @@
    
 
 ## Proses backend
-    sequenceDiagram
+      ```mermaid
+      sequenceDiagram
     participant Client
     participant API_Gateway
     participant Controller
@@ -91,6 +93,7 @@
 
 ## Flowchart Alur kerja Backend
 
+    ```mermaid
     flowchart TD;
     Start[Mulai] --> |Request Masuk| Controller;
     Controller --> |Validasi Data| Validator;
