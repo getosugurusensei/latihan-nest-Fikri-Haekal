@@ -1,100 +1,103 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+## Pendahuluan
+    Proyek ini merupakan aplikasi berbasis NestJS, sebuah framework untuk membangun aplikasi backend yang modular, efisien, dan fleksibel menggunakan TypeScript. NestJS menggunakan Node.js dan memiliki arsitektur yang berbasis pada modul, yang memudahkan pengelolaan berbagai fitur dalam aplikasi.
+    Dengan desain yang mengadopsi konsep Dependency Injection (DI), NestJS memungkinkan pengembang untuk menulis kode yang lebih bersih, mudah diuji, dan mudah dipelihara. Selain itu, NestJS mendukung penggunaan middleware, interceptor, pipe, dan guard untuk meningkatkan keamanan serta fleksibilitas pengolahan data dalam aplikasi backend.
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## Struktur Proyek
+    Struktur proyek ini terdiri dari beberapa direktori dan file penting yang membantu dalam mengorganisir kode agar lebih terstruktur dan mudah dikelola:
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+    root/
+│-- src/              
+│   │-- app.module.ts  
+│   │-- main.ts       
+│   │-- controllers/   
+│   │-- services/     
+│   │-- modules/       
+│   │-- config/        
+│-- test/              
+│-- .eslintrc.js       
+│-- .prettierrc        
+│-- tsconfig.json      
+│-- package.json      
+│-- README.md   
 
-## Description
+## Instalasi dan menjalankan aplikasi
+    A. Persayaratan
+        Sebelum menjalankan proyek ini, pastikan bahwa Anda telah menginstal:
+        1. Node.js versi terbaru disarankan untuk mendukung fitur terbaru dari JavaScript dan TypeScript
+        2. npm atau yarn (untuk mengelola dependensi proyek)
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+    B. Instalasi Dependensi
+        pastikan ada telah menginstal npm pada pc anda dengan mengetikkan di terminal "npm install"
+    
+    C. Menjalankan Aplikasi
+        untuk menjalankan aplikasi backend anda perlu menjalakan servernya terlebih dahulu di terminal dengan mengetikkan "npm run start:dev" maka setelahnya kita ketikkan ini "http://localhost:3000/api-docs" di browser untuk menjalankan swagger yang merupakan backend itu sendiri
 
-## Project setup
+## Fitur Utama
+    Modularisasi: Setiap fitur aplikasi dikemas dalam bentuk modul.
+    Controller & Service: Memisahkan logika bisnis dari pengendali HTTP.
+    Middleware & Guards: Mendukung middleware dan autentikasi dengan guards.
+    Dependency Injection: Memudahkan pengelolaan dependensi.
+    Database Integration: Mendukung integrasi dengan berbagai database.
+    Validation & Exception Handling: Standar validasi request dan penanganan error.
+    Swagger Documentation: Dokumentasi API otomatis menggunakan Swagger.
+    Testing: Mendukung unit testing menggunakan Jest.
 
-```bash
-$ npm install
-```
+# Arsitektur
+    Client -->|HTTP Request| Controller;
+    Controller -->|Processes Request| Service;
+    Service -->|Data Access| Database;
+    Service -->|Calls External APIs| ExternalAPI;
+    Database -->|Stores Data| Storage;
 
-## Compile and run the project
+## Proses backend
+    sequenceDiagram
+    participant Client
+    participant API_Gateway
+    participant Controller
+    participant Service
+    participant Database
+    Client->>API_Gateway: Mengirim Permintaan (HTTP Request)
+    API_Gateway->>Controller: Meneruskan Permintaan
+    Controller->>Service: Memproses Logika Bisnis
+    Service->>Database: Mengambil atau Menyimpan Data
+    Database-->>Service: Mengembalikan Data
+    Service-->>Controller: Mengembalikan Hasil Proses
+    Controller-->>API_Gateway: Mengemas Respons
+    API_Gateway-->>Client: Mengirimkan Respons (HTTP Response)
 
-```bash
-# development
-$ npm run start
+## Integrasi Dengan Aplikasi Chat
+    Backend ini dapat digunakan sebagai backend untuk aplikasi chat berbasis real-time. Dengan menggunakan WebSockets yang didukung oleh NestJS, aplikasi ini dapat menangani komunikasi dua arah antara pengguna secara langsung.
 
-# watch mode
-$ npm run start:dev
+    Cara Kerja Aplikasi Chat dengan Backend Ini
 
-# production mode
-$ npm run start:prod
-```
+        Client menginisiasi koneksi WebSocket dengan server backend.
+        Backend menerima koneksi dan menyimpan informasi pengguna yang terhubung.
+        Saat pengguna mengirim pesan:
+            Client mengirimkan pesan ke backend melalui WebSocket.
+            Backend memvalidasi pesan dan meneruskannya ke pengguna yang dituju.
+            Jika perlu, backend dapat menyimpan riwayat percakapan ke database.
+            Penerima menerima pesan secara real-time dari backend melalui WebSocket.
 
-## Run tests
+    Fitur Chat yang Dapat Diterapkan
+        Autentikasi Pengguna menggunakan JWT atau OAuth.
+        Penyimpanan Riwayat Chat di database menggunakan PostgreSQL atau MongoDB.
+        Grup Chat untuk percakapan dalam grup.
+        Notifikasi Real-Time saat ada pesan baru.
+        Pengiriman Media seperti gambar atau dokumen melalui backend
 
-```bash
-# unit tests
-$ npm run test
+## Flowchart Alur kerja Backend
 
-# e2e tests
-$ npm run test:e2e
+    Start[Mulai] --> |Request Masuk| Controller;
+    Controller --> |Validasi Data| Validator;
+    Validator -->|Validasi Berhasil| Service;
+    Validator --x|Validasi Gagal| Error[Respon Error];
+    Service --> |Proses Logika Bisnis| Database;
+    Database -->|Data Disimpan/Diperoleh| Service;
+    Service --> |Kirim Data ke Controller| Controller;
+    Controller --> |Respon ke Klien| Client;
+    Error --> End[Tamat];
+    Client --> End;
 
-# test coverage
-$ npm run test:cov
-```
-
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
-```bash
-$ npm install -g mau
-$ mau deploy
-```
-
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
-
-## Resources
-
-Check out a few resources that may come in handy when working with NestJS:
-
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
-# LAB-BACKEND
+## Kesimpulan
+    Proyek ini dibangun menggunakan NestJS dengan pendekatan modular, mengikuti best practices dalam pengembangan backend berbasis TypeScript. Dengan adanya sistem modular, proyek ini mudah untuk dikembangkan dan dipelihara dalam skala besar.
+    Backend ini juga sangat cocok untuk aplikasi real-time seperti chat dengan memanfaatkan WebSocket. Selain itu, fitur seperti integrasi database, dokumentasi API, serta unit testing menjadikan proyek ini siap untuk digunakan dalam pengembangan sistem yang sesuai dengan kebutuhan pengembang aplikasi
