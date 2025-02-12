@@ -43,11 +43,13 @@
     Testing: Mendukung unit testing menggunakan Jest.
 
 # Arsitektur
+    graph TD;
     Client -->|HTTP Request| Controller;
     Controller -->|Processes Request| Service;
     Service -->|Data Access| Database;
     Service -->|Calls External APIs| ExternalAPI;
     Database -->|Stores Data| Storage;
+    diagram code here;
 
 ## Proses backend
     sequenceDiagram
@@ -64,6 +66,7 @@
     Service-->>Controller: Mengembalikan Hasil Proses
     Controller-->>API_Gateway: Mengemas Respons
     API_Gateway-->>Client: Mengirimkan Respons (HTTP Response)
+    diagram code here;
 
 ## Integrasi Dengan Aplikasi Chat
     Backend ini dapat digunakan sebagai backend untuk aplikasi chat berbasis real-time. Dengan menggunakan WebSockets yang didukung oleh NestJS, aplikasi ini dapat menangani komunikasi dua arah antara pengguna secara langsung.
@@ -87,6 +90,7 @@
 
 ## Flowchart Alur kerja Backend
 
+    flowchart TD;
     Start[Mulai] --> |Request Masuk| Controller;
     Controller --> |Validasi Data| Validator;
     Validator -->|Validasi Berhasil| Service;
@@ -97,7 +101,8 @@
     Controller --> |Respon ke Klien| Client;
     Error --> End[Tamat];
     Client --> End;
-
+    diagram code here;
+    
 ## Kesimpulan
     Proyek ini dibangun menggunakan NestJS dengan pendekatan modular, mengikuti best practices dalam pengembangan backend berbasis TypeScript. Dengan adanya sistem modular, proyek ini mudah untuk dikembangkan dan dipelihara dalam skala besar.
     Backend ini juga sangat cocok untuk aplikasi real-time seperti chat dengan memanfaatkan WebSocket. Selain itu, fitur seperti integrasi database, dokumentasi API, serta unit testing menjadikan proyek ini siap untuk digunakan dalam pengembangan sistem yang sesuai dengan kebutuhan pengembang aplikasi
