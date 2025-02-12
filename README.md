@@ -1,6 +1,7 @@
 ## Pendahuluan
-    Proyek ini merupakan aplikasi berbasis NestJS, sebuah framework untuk membangun aplikasi backend yang modular, efisien, dan fleksibel menggunakan TypeScript. NestJS menggunakan Node.js dan memiliki arsitektur yang berbasis pada modul, yang memudahkan pengelolaan berbagai fitur dalam aplikasi.
-    Dengan desain yang mengadopsi konsep Dependency Injection (DI), NestJS memungkinkan pengembang untuk menulis kode yang lebih bersih, mudah diuji, dan mudah dipelihara. Selain itu, NestJS mendukung penggunaan middleware, interceptor, pipe, dan guard untuk meningkatkan keamanan serta fleksibilitas pengolahan data dalam aplikasi backend.
+   Proyek ini merupakan aplikasi berbasis NestJS, sebuah framework untuk membangun aplikasi backend yang modular, efisien, dan fleksibel menggunakan TypeScript. NestJS menggunakan Node.js dan memiliki arsitektur yang berbasis pada modul, yang memudahkan pengelolaan berbagai fitur dalam aplikasi.
+   Dengan desain yang mengadopsi konsep Dependency Injection (DI), NestJS memungkinkan pengembang untuk menulis kode yang lebih bersih, mudah diuji, dan mudah dipelihara. Selain itu, NestJS mendukung penggunaan middleware, interceptor, pipe, dan guard untuk meningkatkan keamanan serta fleksibilitas pengolahan data dalam aplikasi backend.
+   NestJS juga menawarkan dukungan bawaan untuk berbagai fitur penting dalam pengembangan backend, seperti validasi data, manajemen konfigurasi, logging, dan pembuatan dokumentasi API secara otomatis menggunakan Swagger. Dengan kemampuannya yang luas, NestJS cocok digunakan untuk membangun berbagai jenis aplikasi backend, mulai dari API RESTful hingga layanan berbasis real-time dengan WebSockets.
 
 ## Struktur Proyek
     Struktur proyek ini terdiri dari beberapa direktori dan file penting yang membantu dalam mengorganisir kode agar lebih terstruktur dan mudah dikelola:
@@ -104,5 +105,6 @@
    
     
 ## Kesimpulan
-    Proyek ini dibangun menggunakan NestJS dengan pendekatan modular, mengikuti best practices dalam pengembangan backend berbasis TypeScript. Dengan adanya sistem modular, proyek ini mudah untuk dikembangkan dan dipelihara dalam skala besar.
-    Backend ini juga sangat cocok untuk aplikasi real-time seperti chat dengan memanfaatkan WebSocket. Selain itu, fitur seperti integrasi database, dokumentasi API, serta unit testing menjadikan proyek ini siap untuk digunakan dalam pengembangan sistem yang sesuai dengan kebutuhan pengembang aplikasi
+    Proyek ini dibangun menggunakan NestJS dengan pendekatan modular, mengikuti best practices dalam pengembangan backend berbasis TypeScript. Dengan adanya sistem modular, proyek ini mudah untuk dikembangkan dan dipelihara dalam skala besar.Backend ini juga sangat cocok untuk aplikasi real-time seperti chat dengan memanfaatkan WebSocket. Selain itu, fitur seperti integrasi database, dokumentasi API, serta unit testing menjadikan proyek ini siap untuk digunakan dalam pengembangan sistem yang kompleks dan produksi. Dengan adanya dukungan enkripsi dan otorisasi, aplikasi ini juga mampu memberikan tingkat keamanan yang tinggi dalam pertukaran data.
+
+
